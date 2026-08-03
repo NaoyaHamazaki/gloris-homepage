@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FELDNA | 現場の「不足」を、選んで埋める学校業務支援システム</title>
+<meta name="description" content="FELDNAは出勤簿・私費会計・旅費精算など学校業務を1機能から選んで導入できる、オールインワン×カスタマイズ型の学校業務支援システムです。">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* ============================================================
+     FELDNA製品ページ専用スタイル。
+     スクロールに応じて要素が表示される演出(reveal)を含みます。
+     ============================================================ */
+
+  :root{
+    --f-navy:#152038;
+    --f-navy2:#0d1929;
+    --f-sky:#0284c7;
+    --f-orange:#f97316;
+    --f-text-inv:#e8f1f9;
+    --f-text-inv-soft:#8ab8d8;
+  }
+
+  /* --- スクロール表示アニメーション --- */
+  .reveal{
+    opacity:0;
+    transform:translateY(32px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .reveal.visible{
+    opacity:1;
+    transform:none;
+  }
+  .reveal.d1{transition-delay:.1s}
+  .reveal.d2{transition-delay:.2s}
+  .reveal.d3{transition-delay:.3s}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
+
+  /* --- ヒーロー --- */
+  .f-hero{
+    min-height:92vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:80px 24px;
+    background:linear-gradient(155deg,#152038 0%,#0d1929 50%,#1a3355 100%);
+    color:#fff;
+  }
+  .f-hero .eyebrow{
+    color:#6aa8d4;
+    font-weight:700;
+    letter-spacing:0.22em;
+    font-size:0.8rem;
+    text-transform:uppercase;
+    margin-bottom:24px;
+  }
+  .f-hero h1{
+    font-size:clamp(2rem, 5.5vw, 3.6rem);
+    font-weight:900;
+    line-height:1.25;
+    margin:0 0 18px;
+  }
+  .f-hero h1 em{font-style:normal; color:var(--f-orange);}
+  .f-hero .sub{
+    color:var(--f-text-inv-soft);
+    font-size:clamp(0.95rem, 2vw, 1.2rem);
+    margin:0 0 40px;
+  }
+  .f-hero .cta-row{display:flex; gap:14px; flex-wrap:wrap; justify-content:center;}
+  .f-hero .btn.ghost{
+    background:transparent;
+    border:2px solid rgba(255,255,255,0.4);
+    color:#fff;
+  }
+  .f-hero .btn.ghost:hover{background:rgba(255,255,255,0.1);}
+  .scroll-hint{
+    margin-top:64px;
+    color:rgba(255,255,255,0.45);
+    font-size:0.8rem;
+    letter-spacing:0.15em;
+  }
+  .scroll-hint::after{
+    content:"↓";
+    display:block;
+    margin-top:6px;
+    animation:bob 1.8s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(8px)}
+  }
+
+  /* --- 大見出し --- */
+  .f-lead{
+    font-size:clamp(1.4rem, 3.6vw, 2.2rem);
+    font-weight:800;
+    text-align:center;
+    color:var(--color-text);
+    margin:0 0 12px;
+    line-height:1.4;
+  }
+  .f-lead em{font-style:normal; color:var(--f-sky);}
+  .f-lead-sub{
+    text-align:center;
+    color:var(--color-text-soft);
+    margin:0 auto 48px;
+    max-width:640px;
+  }
+
+  /* --- 整備状況グリッド(課題セクション) --- */
+  .school-wrap{display:flex; gap:16px; justify-content:center; flex-wrap:wrap;}
+  .school-col{flex:1; min-width:190px; max-width:280px;}
+  .school-head{
+    background:var(--f-navy);
+    color:#fff;
+    font-size:0.85rem;
+    font-weight:700;
+    text-align:center;
+    padding:8px;
+    border-radius:8px 8px 0 0;
+  }
+  .status-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:3px;
+    padding:4px;
+    background:#e5e7eb;
+    border-radius:0 0 8px 8px;
+  }
+  .sc{padding:9px 3px; border-radius:4px; font-size:0.67rem; font-weight:700; text-align:center; line-height:1.3;}
+  .cr{background:#fee2e2; color:#dc2626;}
+  .cg{background:#dcfce7; color:#15803d;}
+  .cy{background:#fef9c3; color:#a16207;}
+  .cb{background:#dbeafe; color:#1d4ed8;}
+  .legend{display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin-top:20px;}
+  .li{display:flex; align-items:center; gap:6px; font-size:0.78rem; color:var(--color-text-soft);}
+  .ld{width:13px; height:13px; border-radius:3px; flex-shrink:0;}
+
+  /* --- 3ステップ --- */
+  .f-steps{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  @media (max-width:760px){.f-steps{grid-template-columns:1fr;}}
+  .f-step{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:32px 24px;
+    text-align:center;
+  }
+  .f-step .num{
+    width:52px; height:52px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:1.2rem;
+    color:#fff;
+    margin:0 auto 16px;
+  }
+  .f-step:nth-child(1) .num{background:var(--f-sky);}
+  .f-step:nth-child(2) .num{background:#8b5cf6;}
+  .f-step:nth-child(3) .num{background:var(--f-orange);}
+  .f-step h3{margin:0 0 10px; font-size:1.05rem;}
+  .f-step p{margin:0; color:var(--color-text-soft); font-size:0.9rem;}
+
+  /* --- 12業務領域 --- */
+  .area-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+  }
+  @media (max-width:760px){.area-grid{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:480px){.area-grid{grid-template-columns:repeat(2,1fr);}}
+  .area-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:20px 8px;
+    text-align:center;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .area-card:hover{transform:translateY(-3px); box-shadow:0 6px 16px rgba(0,0,0,0.08);}
+  .area-card .ai{font-size:1.7rem; margin-bottom:8px;}
+  .area-card .an{font-size:0.82rem; font-weight:600;}
+
+  /* --- 機能ハイライト(スクリーンショット交互配置) --- */
+  .highlight{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+    align-items:center;
+    margin-bottom:88px;
+  }
+  .highlight:last-child{margin-bottom:0;}
+  @media (max-width:820px){
+    .highlight{grid-template-columns:1fr; gap:24px;}
+    .highlight .txt{order:1;}
+    .highlight .shot{order:2;}
+  }
+  .highlight .tag{
+    display:inline-block;
+    background:#e0f2fe;
+    color:var(--f-sky);
+    font-size:0.75rem;
+    font-weight:700;
+    padding:4px 12px;
+    border-radius:999px;
+    margin-bottom:12px;
+  }
+  .highlight h3{font-size:clamp(1.2rem,2.6vw,1.6rem); margin:0 0 14px;}
+  .highlight p{color:var(--color-text-soft); margin:0; font-size:0.95rem;}
+
+  /* --- スクリーンショットプレースホルダー --- */
+  .shot-ph{
+    border:2px dashed #b8c4d0;
+    border-radius:12px;
+    background:repeating-linear-gradient(45deg,#f5f7fa,#f5f7fa 12px,#eef1f5 12px,#eef1f5 24px);
+    aspect-ratio:16/10;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    color:#7b8a99;
+    font-size:0.85rem;
+    text-align:center;
+    padding:16px;
+  }
+  .shot-ph .ph-icon{font-size:2rem;}
+  .shot-ph strong{color:#5b6b7c;}
+
+  /* --- Before/After --- */
+  .ba-wrap{display:flex; gap:20px; align-items:flex-start; justify-content:center; flex-wrap:wrap;}
+  .ba-col{flex:1; min-width:240px; max-width:340px;}
+  .ba-lbl{font-size:0.85rem; font-weight:700; padding:8px; text-align:center; border-radius:8px 8px 0 0;}
+  .ba-lbl.bef{background:#fee2e2; color:#991b1b;}
+  .ba-lbl.aft{background:#dcfce7; color:#14532d;}
+  .ba-arrow{
+    display:flex; align-items:center; justify-content:center;
+    font-size:2rem; color:var(--f-sky); font-weight:700;
+    padding-top:48px;
+  }
+  @media (max-width:640px){.ba-arrow{padding:4px 0; transform:rotate(90deg);}}
+  .ba-note{
+    margin-top:24px;
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
+    border-radius:10px;
+    padding:14px 22px;
+    font-size:0.85rem;
+    color:#1e40af;
+    text-align:center;
+    line-height:1.9;
+  }
+
+  /* --- 最終CTA --- */
+  .f-cta{
+    background:linear-gradient(155deg,#152038 0%,#0d1929 100%);
+    color:#fff;
+    text-align:center;
+    padding:96px 24px;
+  }
+  .f-cta h2{
+    font-size:clamp(1.5rem,4vw,2.4rem);
+    font-weight:900;
+    margin:0 0 14px;
+    line-height:1.35;
+  }
+  .f-cta h2 em{font-style:normal; color:var(--f-orange);}
+  .f-cta .sub{color:var(--f-text-inv-soft); margin:0 0 40px;}
+  .f-cta .cta-cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    max-width:680px;
+    margin:0 auto;
+  }
+  @media (max-width:640px){.f-cta .cta-cards{grid-template-columns:1fr;}}
+  .cta-card{
+    background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:var(--radius);
+    padding:32px 24px;
+  }
+  .cta-card h3{margin:0 0 8px; font-size:1.1rem;}
+  .cta-card p{color:var(--f-text-inv-soft); font-size:0.85rem; margin:0 0 20px;}
+  .cta-card .btn{width:100%;}
+  .cta-card .btn.orange{background:var(--f-orange);}
+  .cta-card .btn.orange:hover{background:#ea6c00;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">GLORIS</a>
+    <nav>
+      <ul>
+        <li><a href="index.html#service">事業内容</a></li>
+        <li><a href="feldna.html">FELDNA</a></li>
+        <li><a href="company.html">会社概要</a></li>
+        <li><a href="index.html#contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= 1. ヒーロー ================= -->
+<section class="f-hero">
+  <div class="eyebrow">School Management System</div>
+  <h1>現場の<em>「不足」</em>を、<br>選んで埋める。</h1>
+  <p class="sub">FELDNA ― オールインワン × カスタマイズ型 学校業務支援システム</p>
+  <div class="cta-row">
+    <a class="btn" style="background:var(--f-orange);" href="#cta">無料デモを申し込む</a>
+    <a class="btn ghost" href="#cta">資料をダウンロード</a>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- ================= 2. 課題提起 ================= -->
+<section>
+  <div class="container">
+    <h2 class="f-lead reveal">学校によって、<em>整備状況はバラバラ</em>です</h2>
+    <p class="f-lead-sub reveal d1">同じ市内でも、学校ごとにツールや整備レベルはまったく異なります。<br>「全校一律のシステム」が現場に合わない理由がここにあります。</p>
+
+    <div class="school-wrap reveal d2">
+      <div class="school-col">
+        <div class="school-head">A校</div>
+        <div class="status-grid">
+          <div class="sc cr">出勤簿</div><div class="sc cy">私費会計</div><div class="sc cy">時数集計</div>
+          <div class="sc cr">休暇簿</div><div class="sc cg">給食</div><div class="sc cb">週予定</div>
+          <div class="sc cr">旅費</div><div class="sc cg">備品</div><div class="sc cb">手当申請</div>
+          <div class="sc cb">市区町村会計</div><div class="sc cb">転出入処理</div><div class="sc cy">学校日誌</div>
+        </div>
+      </div>
+      <div class="school-col">
+        <div class="school-head">B校</div>
+        <div class="status-grid">
+          <div class="sc cr">出勤簿</div><div class="sc cr">私費会計</div><div class="sc cg">時数集計</div>
+          <div class="sc cr">休暇簿</div><div class="sc cg">給食</div><div class="sc cg">週予定</div>
+          <div class="sc cr">旅費</div><div class="sc cr">備品</div><div class="sc cr">手当申請</div>
+          <div class="sc cy">市区町村会計</div><div class="sc cr">転出入処理</div><div class="sc cr">学校日誌</div>
+        </div>
+      </div>
+      <div class="school-col">
+        <div class="school-head">C校</div>
+        <div class="status-grid">
+          <div class="sc cb">出勤簿</div><div class="sc cb">私費会計</div><div class="sc cb">時数集計</div>
+          <div class="sc cb">休暇簿</div><div class="sc cb">給食</div><div class="sc cb">週予定</div>
+          <div class="sc cy">旅費</div><div class="sc cb">備品</div><div class="sc cy">手当申請</div>
+          <div class="sc cb">市区町村会計</div><div class="sc cg">転出入処理</div><div class="sc cr">学校日誌</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend reveal d3">
+      <div class="li"><div class="ld" style="background:#dc2626"></div>アナログ（紙・口頭）</div>
+      <div class="li"><div class="ld" style="background:#15803d"></div>Excel管理</div>
+      <div class="li"><div class="ld" style="background:#a16207"></div>システムあり（使いにくい）</div>
+      <div class="li"><div class="ld" style="background:#1d4ed8"></div>整備済み・満足</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. コンセプト(選べる設計) ================= -->
+<section class="alt">
+  <div class="container">
+    <h2 class="f-lead reveal">だから FELDNAは<em>「選べる」</em>設計です</h2>
+    <p class="f-lead-sub reveal d1">全部いっぺんに入れ替えなくていい。今困っている機能から始められます。</p>
+
+    <div class="f-steps">
+      <div class="f-step reveal d1">
+        <div class="num">1</div>
+        <h3>不足を選ぶ</h3>
+        <p>アナログのまま困っている業務や、既存ツールが使いにくい箇所を選択するだけ。</p>
+      </div>
+      <div class="f-step reveal d2">
+        <div class="num">2</div>
+        <h3>そのまま使い始める</h3>
+        <p>サーバー構築不要。ブラウザからすぐ開始。他の業務は今まで通りでOK。</p>
+      </div>
+      <div class="f-step reveal d3">
+        <div class="num">3</div>
+        <h3>必要に応じて広げる</h3>
+        <p>1機能から慣れたら追加。現場のペースで少しずつ拡張できます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. カバーする業務領域 ================= -->
+<section>
+  <div class="container">
+    <h2 class="f-lead reveal"><em>カバーできる</em>業務領域</h2>
+    <p class="f-lead-sub reveal d1">全部使う必要はありません。今困っている1つから始められます。</p>
+
+    <div class="area-grid reveal d2">
+      <div class="area-card"><div class="ai">📋</div><div class="an">出勤簿</div></div>
+      <div class="area-card"><div class="ai">💰</div><div class="an">私費会計</div></div>
+      <div class="area-card"><div class="ai">⏰</div><div class="an">時数集計</div></div>
+      <div class="area-card"><div class="ai">🌴</div><div class="an">休暇申請</div></div>
+      <div class="area-card"><div class="ai">🍱</div><div class="an">給食管理</div></div>
+      <div class="area-card"><div class="ai">📅</div><div class="an">週予定</div></div>
+      <div class="area-card"><div class="ai">✈️</div><div class="an">旅費精算</div></div>
+      <div class="area-card"><div class="ai">🗂️</div><div class="an">備品管理</div></div>
+      <div class="area-card"><div class="ai">💴</div><div class="an">手当申請</div></div>
+      <div class="area-card"><div class="ai">🏛️</div><div class="an">市区町村会計</div></div>
+      <div class="area-card"><div class="ai">📦</div><div class="an">転出入処理</div></div>
+      <div class="area-card"><div class="ai">📓</div><div class="an">学校日誌</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5. 機能ハイライト(スクリーンショット) ================= -->
+<section class="alt">
+  <div class="container">
+    <h2 class="f-lead reveal">実際の<em>画面</em>を見てみる</h2>
+    <p class="f-lead-sub reveal d1">現場の先生・事務職員がそのまま使えるシンプルな画面設計です。</p>
+
+    <!-- ハイライト1: 出勤簿 -->
+    <div class="highlight">
+      <div class="shot reveal">
+        <div class="shot-ph">
+          <div class="ph-icon">📷</div>
+          <strong>スクリーンショット①</strong>
+          <span>出勤簿の一覧画面<br>(月表示・ダミーデータで)</span>
+        </div>
+      </div>
+      <div class="txt reveal d1">
+        <span class="tag">出勤簿</span>
+        <h3>紙のハンコ出勤簿を、そのままデジタルに</h3>
+        <p>毎朝の押印がワンクリックに。管理職は全職員の状況を一覧で確認でき、月末の集計作業もゼロになります。</p>
+      </div>
+    </div>
+
+    <!-- ハイライト2: 旅費精算 -->
+    <div class="highlight">
+      <div class="txt reveal">
+        <span class="tag">旅費精算</span>
+        <h3>申請から承認まで、二重入力なし</h3>
+        <p>出張申請と旅費精算を1つの流れに。経路・金額の入力は1回だけ。承認状況もリアルタイムで見えます。</p>
+      </div>
+      <div class="shot reveal d1">
+        <div class="shot-ph">
+          <div class="ph-icon">📷</div>
+          <strong>スクリーンショット②</strong>
+          <span>旅費申請フォームまたは<br>承認フロー画面</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ハイライト3: 私費会計 -->
+    <div class="highlight">
+      <div class="shot reveal">
+        <div class="shot-ph">
+          <div class="ph-icon">📷</div>
+          <strong>スクリーンショット③</strong>
+          <span>私費会計の収支画面<br>(集金状況の一覧など)</span>
+        </div>
+      </div>
+      <div class="txt reveal d1">
+        <span class="tag">私費会計</span>
+        <h3>集金状況が、ひと目でわかる</h3>
+        <p>学年・学級ごとの集金状況を一覧化。未納の確認や決算書類の作成にかかる時間を大幅に削減します。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= 6. 導入例(Before/After) ================= -->
+<section>
+  <div class="container">
+    <h2 class="f-lead reveal">導入例：<em>A校の場合</em></h2>
+    <p class="f-lead-sub reveal d1">まず「出勤簿」と「旅費」の2機能から始めたケース。</p>
+
+    <div class="ba-wrap reveal d2">
+      <div class="ba-col">
+        <div class="ba-lbl bef">導入前</div>
+        <div class="status-grid" style="border-radius:0 0 8px 8px;">
+          <div class="sc cr">出勤簿</div><div class="sc cy">私費会計</div><div class="sc cy">時数集計</div>
+          <div class="sc cr">休暇簿</div><div class="sc cg">給食</div><div class="sc cb">週予定</div>
+          <div class="sc cr">旅費</div><div class="sc cg">備品</div><div class="sc cb">手当申請</div>
+          <div class="sc cb">市区町村会計</div><div class="sc cb">転出入処理</div><div class="sc cy">学校日誌</div>
+        </div>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-col">
+        <div class="ba-lbl aft">2機能を追加後</div>
+        <div class="status-grid" style="border-radius:0 0 8px 8px;">
+          <div class="sc cb">出勤簿</div><div class="sc cy">私費会計</div><div class="sc cy">時数集計</div>
+          <div class="sc cr">休暇簿</div><div class="sc cg">給食</div><div class="sc cb">週予定</div>
+          <div class="sc cb">旅費</div><div class="sc cg">備品</div><div class="sc cb">手当申請</div>
+          <div class="sc cb">市区町村会計</div><div class="sc cb">転出入処理</div><div class="sc cy">学校日誌</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ba-note reveal d3">
+      ✅ 他の業務は従来通りで問題なし　✅ 新たな二重入力なし　✅ 管理者が状況を一元確認
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7. 最終CTA(デモ・資料請求) ================= -->
+<section class="f-cta" id="cta">
+  <h2 class="reveal"><em>全部入れ替え</em>なくていい。<br>不足を埋めるところから。</h2>
+  <p class="sub reveal d1">まずは気になる機能だけ、お試しください。</p>
+
+  <div class="cta-cards">
+    <div class="cta-card reveal d1">
+      <h3>🖥️ 無料デモ</h3>
+      <p>実際の画面を操作しながら、貴校の業務に合うかをご確認いただけます。</p>
+      <!-- TODO: デモ申請専用フォームができたらURLを差し替え -->
+      <a class="btn orange" href="https://docs.google.com/forms/d/e/1FAIpQLSdUdsP-QbqmL9lcQ3vRYduFFZoiE6zXe6CVgFznMyqG78hyow/viewform" target="_blank" rel="noopener">デモを申し込む</a>
+    </div>
+    <div class="cta-card reveal d2">
+      <h3>📄 資料請求（PDF）</h3>
+      <p>FELDNAの概要・機能一覧をまとめた資料をダウンロードいただけます。</p>
+      <!-- TODO: PDF準備後、href="feldna-doc.pdf" などに差し替え -->
+      <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdUdsP-QbqmL9lcQ3vRYduFFZoiE6zXe6CVgFznMyqG78hyow/viewform" target="_blank" rel="noopener">資料を請求する</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="company-info">
+      GLORIS ／ 代表：浜崎 直也 ／ 〒〇〇〇-〇〇〇〇 〇〇県〇〇市〇〇
+    </div>
+    <div class="legal-links">
+      <a href="company.html">会社概要</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="terms.html">利用規約</a>
+      <a href="tokushoho.html">特定商取引法に基づく表記</a>
+    </div>
+    <div>&copy; 2026 GLORIS. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // スクロールに応じて .reveal 要素をふわっと表示
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>
