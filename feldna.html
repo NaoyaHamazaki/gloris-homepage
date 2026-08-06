@@ -21,23 +21,6 @@
     --f-text-inv-soft:#8ab8d8;
   }
 
-  /* --- スクロール表示アニメーション --- */
-  .reveal{
-    opacity:0;
-    transform:translateY(32px);
-    transition:opacity .8s ease, transform .8s ease;
-  }
-  .reveal.visible{
-    opacity:1;
-    transform:none;
-  }
-  .reveal.d1{transition-delay:.1s}
-  .reveal.d2{transition-delay:.2s}
-  .reveal.d3{transition-delay:.3s}
-  @media (prefers-reduced-motion: reduce){
-    .reveal{opacity:1; transform:none; transition:none;}
-  }
-
   /* --- ヒーロー --- */
   .f-hero{
     min-height:92vh;
