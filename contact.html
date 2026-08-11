@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ | GLORIS</title>
+<meta name="description" content="GLORISへのお問い合わせフォーム">
+<link rel="stylesheet" href="style.css">
+<style>
+  .form-card{
+    max-width:560px;
+    margin:0 auto;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:40px 32px;
+  }
+  .form-group{margin-bottom:22px;}
+  .form-group label{
+    display:block;
+    font-weight:700;
+    font-size:0.9rem;
+    margin-bottom:8px;
+  }
+  .form-group .req{color:#dc2626; margin-left:4px; font-weight:700;}
+  .form-group .hint{
+    font-weight:400;
+    color:var(--color-text-soft);
+    font-size:0.8rem;
+    margin-left:6px;
+  }
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group textarea{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-size:0.95rem;
+    font-family:inherit;
+    color:var(--color-text);
+    background:var(--color-bg-soft);
+  }
+  .form-group input:focus,
+  .form-group textarea:focus{
+    outline:2px solid var(--color-primary);
+    outline-offset:1px;
+    background:#fff;
+  }
+  .form-group textarea{resize:vertical; min-height:140px;}
+  .radio-row{display:flex; gap:24px;}
+  .radio-row label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:400;
+    margin-bottom:0;
+    cursor:pointer;
+  }
+  .radio-row input{width:16px; height:16px;}
+  .form-submit{
+    width:100%;
+    text-align:center;
+  }
+  .form-note{
+    text-align:center;
+    font-size:0.85rem;
+    color:var(--color-text-soft);
+    margin-top:16px;
+  }
+  .form-status{
+    text-align:center;
+    margin-top:16px;
+    font-weight:700;
+    display:none;
+  }
+  .form-status.success{color:#15803d; display:block;}
+  .form-status.error{color:#dc2626; display:block;}
+  /* スパム対策用ハニーポット(人間には見えない) */
+  .hp-field{position:absolute; left:-9999px; opacity:0; height:0;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">GLORIS</a>
+    <nav>
+      <ul>
+        <li><a href="index.html#service">事業内容</a></li>
+        <li><a href="feldna.html">FELDNA</a></li>
+        <li><a href="index.html#profile">代表紹介</a></li>
+        <li><a href="company.html">会社概要</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="hero-eyebrow">Contact</div>
+    <h1>お問い合わせ</h1>
+  </div>
+</div>
+
+<section class="legal-body">
+  <div class="container">
+    <p style="text-align:center; color:var(--color-text-soft); margin:0 auto 40px; max-width:480px;">
+      サービスに関するご質問・ご相談はこちらのフォームからお気軽にご連絡ください。
+    </p>
+
+    <div class="form-card">
+      <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <!--
+          Web3Formsで発行されたアクセスキーを、下のvalue="" に貼り付けてください。
+          (https://web3forms.com/ でメールアドレスを登録すると届きます)
+        -->
+        <input type="hidden" name="access_key" value="ここにWeb3Formsのアクセスキーを貼り付け">
+        <input type="hidden" name="subject" value="GLORIS お問い合わせフォームより">
+        <input type="hidden" name="from_name" value="GLORIS お問い合わせフォーム">
+        <!-- ハニーポット: スパム自動送信対策。人間には見えない項目 -->
+        <input type="text" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off">
+
+        <div class="form-group">
+          <label>お客様区分<span class="req">*</span></label>
+          <div class="radio-row">
+            <label><input type="radio" name="お客様区分" value="個人" required> 個人</label>
+            <label><input type="radio" name="お客様区分" value="組織・法人" required> 組織・法人</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="org">組織・法人名<span class="hint">組織の方のみご記入ください</span></label>
+          <input type="text" id="org" name="組織・法人名">
+        </div>
+
+        <div class="form-group">
+          <label for="name">お名前<span class="req">*</span></label>
+          <input type="text" id="name" name="お名前" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">メールアドレス<span class="req">*</span></label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="message">お問い合わせ内容<span class="req">*</span></label>
+          <textarea id="message" name="お問い合わせ内容" required></textarea>
+        </div>
+
+        <button type="submit" class="btn form-submit">送信する</button>
+        <div id="form-status" class="form-status"></div>
+      </form>
+      <p class="form-note">送信されたメールは <a href="mailto:info@gloris.jp">info@gloris.jp</a> 宛に届きます。うまく送信できない場合は直接メールにてご連絡ください。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="company-info">
+      GLORIS ／ 代表：浜崎 直也
+    </div>
+    <div class="legal-links">
+      <a href="company.html">会社概要</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="terms.html">利用規約</a>
+      <a href="tokushoho.html">特定商取引法に基づく表記</a>
+    </div>
+    <div>&copy; 2026 GLORIS. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    status.className = "form-status";
+    status.textContent = "";
+    const formData = new FormData(form);
+    const submitBtn = form.querySelector("button[type=submit]");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "送信中...";
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        status.classList.add("success");
+        status.textContent = "送信しました。ご連絡ありがとうございます。";
+        form.reset();
+      } else {
+        status.classList.add("error");
+        status.textContent = "送信に失敗しました。時間をおいて再度お試しください。";
+      }
+    } catch (err) {
+      status.classList.add("error");
+      status.textContent = "送信に失敗しました。時間をおいて再度お試しください。";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "送信する";
+    }
+  });
+</script>
+
+</body>
+</html>
