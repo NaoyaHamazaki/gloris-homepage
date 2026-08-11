@@ -181,14 +181,18 @@
     status.className = "form-status";
     status.textContent = "";
     const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
     const submitBtn = form.querySelector("button[type=submit]");
     submitBtn.disabled = true;
     submitBtn.textContent = "送信中...";
     try {
       const res = await fetch(form.action, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData,
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (data.success) {
