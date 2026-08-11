@@ -326,6 +326,59 @@ footer .legal-links a:hover{
   text-decoration:underline;
 }
 
+/* --- 汎用: 3ステップ(サービス詳細ページ共通) --- */
+.step-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+@media (max-width:760px){.step-grid{grid-template-columns:1fr;}}
+.step-card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:32px 24px;
+  text-align:center;
+}
+.step-card .num{
+  width:52px;height:52px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:1.2rem;
+  color:#fff;
+  margin:0 auto 16px;
+  background:var(--color-primary);
+}
+.step-card h3{margin:0 0 10px; font-size:1.05rem;}
+.step-card p{margin:0; color:var(--color-text-soft); font-size:0.9rem;}
+
+/* --- 汎用: 特徴カード(2列, サービス詳細ページ共通) --- */
+.feature-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+@media (max-width:640px){.feature-list{grid-template-columns:1fr;}}
+.feature-item{
+  display:flex;
+  gap:14px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+}
+.feature-item .fi-icon{
+  flex:none;
+  width:40px;height:40px;
+  border-radius:10px;
+  background:var(--color-bg-soft);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--color-primary);
+}
+.feature-item .fi-icon svg{width:20px;height:20px;}
+.feature-item h4{margin:0 0 4px; font-size:0.95rem;}
+.feature-item p{margin:0; color:var(--color-text-soft); font-size:0.85rem;}
+
 /* --- 会社概要・法定ページ共通（表・本文） --- */
 .page-hero{
   padding:64px 24px 40px;

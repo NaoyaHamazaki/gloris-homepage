@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>法人向けサービス | GLORIS</title>
+<meta name="description" content="GLORISが提供する企業向けサービス。AI開発支援・Web開発支援・ITコンサルティングでDXを支援します。">
+<link rel="stylesheet" href="style.css">
+<style>
+  .svc-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+    margin-top:40px;
+  }
+  @media (max-width:820px){
+    .svc-grid{grid-template-columns:1fr;}
+  }
+  .svc-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:36px 28px;
+    text-align:left;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .svc-card:hover{transform:translateY(-3px); box-shadow:0 10px 24px rgba(0,0,0,0.07);}
+  .svc-card .icon{
+    width:52px;height:52px;
+    border-radius:14px;
+    background:var(--color-bg-soft);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;
+  }
+  .svc-card .icon svg{width:26px;height:26px;color:var(--color-primary);}
+  .svc-card h3{margin:0 0 10px; font-size:1.15rem;}
+  .svc-card p{margin:0 0 18px; color:var(--color-text-soft); font-size:0.92rem;}
+  .svc-card a.more{
+    color:var(--color-primary);
+    font-weight:700;
+    text-decoration:none;
+    font-size:0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="index.html">GLORIS</a>
+    <nav>
+      <ul>
+        <li><a href="index.html#service">事業内容</a></li>
+        <li><a href="feldna.html">FELDNA</a></li>
+        <li><a href="service.html">法人向けサービス</a></li>
+        <li><a href="company.html">会社概要</a></li>
+        <li><a href="contact.html">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="hero-eyebrow reveal">For Business</div>
+    <h1 class="reveal d1">法人向けサービス</h1>
+  </div>
+</div>
+
+<section class="legal-body">
+  <div class="container">
+    <p class="reveal d1" style="text-align:center; color:var(--color-text-soft); max-width:560px; margin:0 auto;">
+      GLORISは学校向けシステム開発で培った「現場に寄り添う開発力」を活かし、
+      一般企業のAI活用・Web開発・DX推進を支援しています。
+    </p>
+
+    <div class="svc-grid">
+      <div class="svc-card reveal">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/><line x1="9" y1="12" x2="9" y2="14"/><line x1="15" y1="12" x2="15" y2="14"/></svg></div>
+        <h3>AI開発支援</h3>
+        <p>業務特化型AIツールの開発から、生成AI活用の内製化支援まで。「導入して終わり」にしない伴走型の支援を行います。</p>
+        <a class="more" href="ai.html">詳しく見る →</a>
+      </div>
+      <div class="svc-card reveal d1">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>Web開発支援</h3>
+        <p>業務システム・Webアプリ・コーポレートサイトを、アジャイル型でスピーディーに開発。既製品では合わない業務にもフィットさせます。</p>
+        <a class="more" href="web.html">詳しく見る →</a>
+      </div>
+      <div class="svc-card reveal d2">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.2 1.3 1.4 2.2h4.4c.2-.9.7-1.7 1.4-2.2A6 6 0 0 0 12 3z"/></svg></div>
+        <h3>ITコンサルティング</h3>
+        <p>「何から始めればいいかわからない」DXの最初の一歩を、現場経験を活かして一緒に整理し、実行まで伴走します。</p>
+        <a class="more" href="consulting.html">詳しく見る →</a>
+      </div>
+    </div>
+
+    <div class="reveal d3" style="text-align:center; margin-top:48px;">
+      <a class="btn" href="contact.html">相談してみる</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="company-info">
+      GLORIS ／ 代表：浜崎 直也
+    </div>
+    <div class="legal-links">
+      <a href="company.html">会社概要</a>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="terms.html">利用規約</a>
+      <a href="tokushoho.html">特定商取引法に基づく表記</a>
+    </div>
+    <div>&copy; 2026 GLORIS. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>
