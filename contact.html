@@ -31,6 +31,7 @@
   }
   .form-group input[type="text"],
   .form-group input[type="email"],
+  .form-group select,
   .form-group textarea{
     width:100%;
     padding:12px 14px;
@@ -42,6 +43,7 @@
     background:var(--color-bg-soft);
   }
   .form-group input:focus,
+  .form-group select:focus,
   .form-group textarea:focus{
     outline:2px solid var(--color-primary);
     outline-offset:1px;
@@ -123,6 +125,19 @@
         <input type="text" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off">
 
         <div class="form-group">
+          <label for="type">お問い合わせ区分<span class="req">*</span></label>
+          <select id="type" name="お問い合わせ区分" required>
+            <option value="" disabled selected>選択してください</option>
+            <option value="FELDNAの無料デモを希望">FELDNAの無料デモを希望</option>
+            <option value="FELDNAの資料請求">FELDNAの資料請求</option>
+            <option value="FELDNAについて(その他)">FELDNAについて(その他)</option>
+            <option value="内製化支援研修について">内製化支援研修について</option>
+            <option value="IT・DXコンサルティングについて">IT・DXコンサルティングについて</option>
+            <option value="その他のお問い合わせ">その他のお問い合わせ</option>
+          </select>
+        </div>
+
+        <div class="form-group">
           <label>お客様区分<span class="req">*</span></label>
           <div class="radio-row">
             <label><input type="radio" name="お客様区分" value="個人" required> 個人</label>
@@ -174,6 +189,23 @@
 </footer>
 
 <script>
+  // URLの ?type=... に応じて「お問い合わせ区分」を自動選択
+  // 対応キー: feldna_demo / feldna_doc / feldna_other / training / consulting
+  (function () {
+    const typeMap = {
+      feldna_demo: "FELDNAの無料デモを希望",
+      feldna_doc: "FELDNAの資料請求",
+      feldna_other: "FELDNAについて(その他)",
+      training: "内製化支援研修について",
+      consulting: "IT・DXコンサルティングについて",
+    };
+    const key = new URLSearchParams(location.search).get("type");
+    if (key && typeMap[key]) {
+      const select = document.getElementById("type");
+      select.value = typeMap[key];
+    }
+  })();
+
   const form = document.getElementById("contact-form");
   const status = document.getElementById("form-status");
   form.addEventListener("submit", async (e) => {
