@@ -89,9 +89,7 @@
     <a class="logo" href="index.html">GLORIS</a>
     <nav>
       <ul>
-        <li><a href="index.html#service">事業内容</a></li>
-        <li><a href="feldna.html">FELDNA</a></li>
-        <li><a href="service.html">法人向けサービス</a></li>
+        <li><a href="service.html">事業内容</a></li>
         <li><a href="company.html">会社概要</a></li>
         <li><a href="contact.html">お問い合わせ</a></li>
       </ul>
@@ -131,11 +129,11 @@
             <option value="FELDNAの無料デモを希望">FELDNAの無料デモを希望</option>
             <option value="FELDNAの資料請求">FELDNAの資料請求</option>
             <option value="FELDNAについて(その他)">FELDNAについて(その他)</option>
-            <option value="内製化支援研修について">内製化支援研修について</option>
-            <option value="IT・DXコンサルティングについて(学校・行政)">IT・DXコンサルティングについて(学校・行政)</option>
-            <option value="AI開発について">AI開発について</option>
-            <option value="Web開発について">Web開発について</option>
-            <option value="ITコンサルティングについて(一般企業)">ITコンサルティングについて(一般企業)</option>
+            <option value="業務効率化・DX相談ミーティング(無料/学校・教育委員会)">業務効率化・DX相談ミーティング(無料/学校・教育委員会)</option>
+            <option value="その他のご相談(学校・教育委員会)">その他のご相談(学校・教育委員会)</option>
+            <option value="Webアプリについて">Webアプリについて</option>
+            <option value="iOSアプリについて">iOSアプリについて</option>
+            <option value="スポットコンサル相談(一般企業)">スポットコンサル相談(一般企業)</option>
             <option value="その他のお問い合わせ">その他のお問い合わせ</option>
           </select>
         </div>
@@ -197,23 +195,27 @@
 </footer>
 
 <script>
-  // URLの ?type=... に応じて「お問い合わせ区分」を自動選択
-  // 対応キー: feldna_demo / feldna_doc / feldna_other / training / consulting
+  // URLの ?type=... に応じて「お問い合わせ区分」を、?msg=... に応じて本文を自動入力
+  // 対応キー: feldna_demo / feldna_doc / feldna_other / school_dx / school_other / webapp / iosapp / spot_consulting
   (function () {
     const typeMap = {
       feldna_demo: "FELDNAの無料デモを希望",
       feldna_doc: "FELDNAの資料請求",
       feldna_other: "FELDNAについて(その他)",
-      training: "内製化支援研修について",
-      consulting: "IT・DXコンサルティングについて(学校・行政)",
-      ai: "AI開発について",
-      web: "Web開発について",
-      consulting_general: "ITコンサルティングについて(一般企業)",
+      school_dx: "業務効率化・DX相談ミーティング(無料/学校・教育委員会)",
+      school_other: "その他のご相談(学校・教育委員会)",
+      webapp: "Webアプリについて",
+      iosapp: "iOSアプリについて",
+      spot_consulting: "スポットコンサル相談(一般企業)",
     };
-    const key = new URLSearchParams(location.search).get("type");
+    const params = new URLSearchParams(location.search);
+    const key = params.get("type");
     if (key && typeMap[key]) {
-      const select = document.getElementById("type");
-      select.value = typeMap[key];
+      document.getElementById("type").value = typeMap[key];
+    }
+    const msg = params.get("msg");
+    if (msg) {
+      document.getElementById("message").value = msg;
     }
   })();
 

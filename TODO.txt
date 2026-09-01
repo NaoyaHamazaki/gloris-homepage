@@ -1,11 +1,18 @@
 GLORIS ホームページ 対応状況メモ
-最終更新: 2026-08-25
+最終更新: 2026-09-01
 
 公開URL: https://gloris.jp/
 リポジトリ: https://github.com/NaoyaHamazaki/gloris-homepage
 
 
 ■ 進行中(要対応)
+
+0. 事業内容ページ(service.html)の質問形式ウィザードで、実URL未確定のため「準備中」表示にしている箇所
+   - FELDNA「登録して使ってみたい」「とりあえず画面だけ見てみたい」→ 新規登録ページ・ゲスト体験ページが
+     実在しないため、準備中表示+問い合わせ導線にしている。実URLができたら service.html の leaveTo() 内の
+     contact.html?type=feldna_other リンクを実URLに差し替え
+   - iOSアプリ実績 → 準備中表示。公開したら service.html の goIosApps() をアプリ一覧表示に差し替え
+   - Webアプリ実績は「受付・入退室管理」のみ掲載中。増えたら service.html の WEB_APPS 配列に追加
 
 1. サービス資料リンク(スライド)の公開設定
    - index.html の事業内容カード内、Claude Artifactへのリンクが非表示中(コメントアウト)
@@ -103,3 +110,9 @@ GLORIS ホームページ 対応状況メモ
   ITコンサルティング(consulting.html)ページを新設、全ページのナビ・お問い合わせ区分に反映
 - 会社の住所を確定・反映: 〒164-0001 東京都中野区中野四丁目10番2号 中野セントラルパークサウス2階
   (company.html・tokushoho.html)
+- ヘッダーナビを「事業内容・会社概要・お問い合わせ」の3項目に整理(2026-09-01)
+- 「事業内容」を、質問に答えると求める情報にページ遷移せずたどり着けるウィザード形式のページ
+  (service.html)に刷新。旧 service.html(法人向けサービス一覧)・ai.html・web.html・consulting.html は
+  内容を統合の上で削除。index.htmlの事業内容セクションもservice.htmlへ誘導する簡潔なCTAに変更。
+  contact.htmlのお問い合わせ区分・自動選択キー(type=)も新フローに合わせて再編し、本文プリセット用の
+  msg= パラメータを追加(2026-09-01)
