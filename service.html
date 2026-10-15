@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>事業内容 | GLORIS</title>
-<meta name="description" content="GLORISの事業内容。いくつかの質問に答えるだけで、学校・教育委員会向けFELDNA、一般企業向けアプリ開発・業務相談など、知りたい情報にたどり着けます。">
+<meta name="description" content="GLORISの事業内容。いくつかの質問に答えるだけで、学校・教育委員会・行政機関向けのFELDNAやDX相談、一般企業向けアプリ開発・業務相談など、知りたい情報にたどり着けます。">
 <link rel="stylesheet" href="style.css">
 <style>
   /* ============================================================
@@ -493,7 +493,7 @@
     history.length = 0;
     push("事業内容", () => {
       const options = [
-        { icon: ICONS.school, title: "公立・私立学校 / 教育委員会関係者", desc: "学校業務支援システムFELDNAや、DX相談について", onSelect: goSchool },
+        { icon: ICONS.school, title: "公立・私立学校 / 教育委員会・行政機関（区役所・市役所等）関係者", desc: "学校業務支援システムFELDNAや、DX相談について", onSelect: goSchool },
         { icon: ICONS.building, title: "民間企業", desc: "アプリ開発の実績や、業務のご相談について", onSelect: goCompany },
       ];
       stage.innerHTML = renderOptions({
@@ -507,14 +507,14 @@
   }
 
   function goSchool() {
-    push("学校・教育委員会", () => {
+    push("学校・教育委員会・行政機関", () => {
       const options = [
         { icon: ICONS.feldna, title: "オールインワン×カスタマイズ型 校務支援システム FELDNA", desc: "学校業務を1機能から選んで導入できるシステムです", onSelect: goFeldna },
         { icon: ICONS.chat, title: "業務効率化・DX相談ミーティング（無料）", desc: "現場のお困りごとを無料でご相談いただけます", onSelect: () => goPainPoints({ eyebrow: "業務効率化・DX相談ミーティング（無料）", contactType: "school_dx" }) },
         { icon: ICONS.mail, title: "その他ご相談", desc: "上記に当てはまらないご相談はこちら", onSelect: () => goSimpleContact({ eyebrow: "その他ご相談", contactType: "school_other" }) },
       ];
       stage.innerHTML = renderOptions({
-        eyebrow: "A1 学校・教育委員会関係者",
+        eyebrow: "A1 学校・教育委員会・行政機関関係者",
         title: "何についてお知りになりたいですか？",
         lead: "選んだ内容に応じて、次のご案内をします。",
         options,
