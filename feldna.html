@@ -214,6 +214,10 @@
   .shot-ph .ph-icon{color:#7b8a99;}
   .shot-ph .ph-icon svg{width:36px; height:36px;}
   .shot-ph strong{color:#5b6b7c;}
+  /* 動画が用意できるまでは枠を出さず、説明文だけを1列で表示する。
+     動画を入れるときは、該当の highlight から no-shot、shot から pending を外す */
+  .shot.pending{display:none;}
+  .highlight.no-shot{grid-template-columns:1fr; max-width:720px; margin-left:auto; margin-right:auto; margin-bottom:48px;}
 
   /* --- 画面収録動画(自動再生・ループ・操作不要) --- */
   .shot video{
@@ -306,7 +310,7 @@
   <p class="sub">FELDNA ― オールインワン × カスタマイズ型 学校業務支援システム</p>
   <div class="cta-row">
     <a class="btn" style="background:var(--f-orange);" href="#cta">無料デモを申し込む</a>
-    <a class="btn ghost" href="#cta">資料をダウンロード</a>
+    <a class="btn ghost" href="#cta">資料を請求する</a>
   </div>
   <div class="scroll-hint">SCROLL</div>
 </section>
@@ -417,8 +421,8 @@
     </figure>
 
     <!-- ハイライト1: 出勤簿 -->
-    <div class="highlight">
-      <div class="shot reveal">
+    <div class="highlight no-shot">
+      <div class="shot pending reveal">
         <!--
           動画(mp4)を media フォルダに置いたら、下の shot-ph を削除して
           次の1行を有効化してください。自動再生・ループ・操作不要で流れます。
@@ -438,13 +442,13 @@
     </div>
 
     <!-- ハイライト2: 私費会計 -->
-    <div class="highlight">
+    <div class="highlight no-shot">
       <div class="txt reveal">
         <span class="tag">私費会計</span>
         <h3>会計状況が、ひと目でわかる</h3>
         <p>学年・学級ごとの会計状況を一覧化。承認フローもオンラインで完結し、決算書類の作成にかかる時間を大幅に削減します。</p>
       </div>
-      <div class="shot reveal d1">
+      <div class="shot pending reveal d1">
         <!-- <video src="media/feldna-accounting.mp4" autoplay muted loop playsinline></video> -->
         <div class="shot-ph">
           <div class="ph-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="13" height="12" rx="2"/><polygon points="22 8 16 12 22 16"/></svg></div>
@@ -455,8 +459,8 @@
     </div>
 
     <!-- ハイライト3: 週予定 -->
-    <div class="highlight">
-      <div class="shot reveal">
+    <div class="highlight no-shot">
+      <div class="shot pending reveal">
         <!-- <video src="media/feldna-weekly.mp4" autoplay muted loop playsinline></video> -->
         <div class="shot-ph">
           <div class="ph-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="13" height="12" rx="2"/><polygon points="22 8 16 12 22 16"/></svg></div>
@@ -472,13 +476,13 @@
     </div>
 
     <!-- ハイライト4: 時間割 -->
-    <div class="highlight">
+    <div class="highlight no-shot">
       <div class="txt reveal">
         <span class="tag">時間割</span>
         <h3>時間割の変更も、すぐ届く</h3>
         <p>時間割の作成から変更の周知までをサポート。急な入れ替えも、関係する先生へすぐに共有できます。</p>
       </div>
-      <div class="shot reveal d1">
+      <div class="shot pending reveal d1">
         <!-- <video src="media/feldna-timetable.mp4" autoplay muted loop playsinline></video> -->
         <div class="shot-ph">
           <div class="ph-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="13" height="12" rx="2"/><polygon points="22 8 16 12 22 16"/></svg></div>
@@ -538,8 +542,8 @@
       <a class="btn orange" href="contact.html?type=feldna_demo">デモを申し込む</a>
     </div>
     <div class="cta-card reveal d2">
-      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>資料請求（PDF）</h3>
-      <p>FELDNAの概要・機能一覧をまとめた資料をダウンロードいただけます。</p>
+      <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>資料請求</h3>
+      <p>FELDNAの概要・機能をまとめた資料のご請求は、フォームから承ります。</p>
       <!-- TODO: PDF準備後、href="feldna-doc.pdf" などに差し替え -->
       <a class="btn" href="contact.html?type=feldna_doc">資料を請求する</a>
     </div>
